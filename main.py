@@ -79,6 +79,4 @@ def main():
     labels = entrada['label']
     print("Shape da matriz TF-IDF:", tfidf_mat.shape)
 
-    
-
 main()
