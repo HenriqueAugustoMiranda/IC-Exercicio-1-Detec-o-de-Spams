@@ -3,6 +3,8 @@ import matplotlib.pyplot as mplot
 import unicodedata
 import nltk
 from nltk.corpus import stopwords as sw
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 # nltk.download("stopwords")
 stopwords = set(sw.words("english"))
@@ -53,11 +55,28 @@ def pre_processamento(entrada):
     return entrada
 
 
+def tfidf(entrada):
+    
+    vectorizer = TfidfVectorizer(
+        min_df=5,
+        max_features=5000,
+        ngram_range=(1,1)
+    )
+
+    tfidf_mat = vectorizer.fit_transform(entrada['text'])
+
+    return tfidf_mat, vectorizer
+
+
 def main():
     
     entrada = pnd.read_csv(ENTRADA_PATH, sep='\t', header=None, names=['label', 'text'])
     
     entrada = pre_processamento(entrada)
     entrada = dados_analises(entrada)
+
+    tfidf_mat, vectorizer = tfidf(entrada)
+
+    labels = entrada['label']
 
 main()
