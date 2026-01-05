@@ -4,6 +4,12 @@ import unicodedata
 import nltk
 from nltk.corpus import stopwords as sw
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import LinearSVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, f1_score
+import numpy as np
 
 
 # nltk.download("stopwords")
@@ -68,6 +74,73 @@ def tfidf(entrada):
     return tfidf_mat, vectorizer
 
 
+def KNN(X_train, X_test, y_train, y_test):
+
+    KNC = KNeighborsClassifier(n_neighbors=5)
+    KNC.fit(X_train, y_train)
+    predict = KNC.predict(X_test)
+
+    accuracy = accuracy_score(y_test, predict)
+    f1 = f1_score(y_test, predict, average="macro")
+
+    return accuracy, f1
+
+
+def SVM(X_train, X_test, y_train, y_test):
+
+    svm = LinearSVC(random_state=42)
+    svm.fit(X_train, y_train)
+    predict = svm.predict(X_test)
+
+    accuracy = accuracy_score(y_test, predict)
+    f1 = f1_score(y_test, predict, average="macro")
+
+    return accuracy, f1
+
+
+def DTC(X_train, X_test, y_train, y_test):
+    
+    dtc = DecisionTreeClassifier(
+        criterion='gini',
+        max_depth=20,
+        min_samples_split=5,
+        random_state=42
+    )
+
+    dtc.fit(X_train, y_train)
+    predict = dtc.predict(X_test)
+
+    accuracy = accuracy_score(y_test, predict)
+    f1 = f1_score(y_test, predict, average="macro")
+
+    return accuracy, f1
+
+
+def classify(X, y):
+
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    KNN_accuracy, KNN_f1 = KNN(X_train, X_test, y_train, y_test)
+    SVM_accuracy, SVM_f1 = SVM(X_train, X_test, y_train, y_test)
+    DTC_accuracy, DTC_f1 = DTC(X_train, X_test, y_train, y_test)
+
+    labels = ["KNN", "SVC", "Árvore Binária"]
+    accuracy = [KNN_accuracy, SVM_accuracy, DTC_accuracy]
+    f1 = [KNN_f1, SVM_f1, DTC_f1]
+
+    mplot.figure()
+    mplot.bar(labels, accuracy)
+    mplot.title("Comparação de Acurácia")
+    mplot.ylabel("Acurácia")
+    mplot.show()
+
+    mplot.figure()
+    mplot.bar(labels, f1)
+    mplot.title("Comparação de Macro F1")
+    mplot.ylabel("F1-score")
+    mplot.show()
+
+
 def main():
     
     entrada = pnd.read_csv(ENTRADA_PATH, sep='\t', header=None, names=['label', 'text'])
@@ -75,8 +148,10 @@ def main():
     entrada = pre_processamento(entrada)
     entrada = dados_analises(entrada)
 
-    tfidf_mat, vectorizer = tfidf(entrada)
-    labels = entrada['label']
-    print("Shape da matriz TF-IDF:", tfidf_mat.shape)
+    X, vectorizer = tfidf(entrada)
+    y = entrada['label'].map({'ham': 0, 'spam': 1})
+    print("Shape da matriz TF-IDF:", X.shape)
+
+    classify(X, y)
 
 main()
