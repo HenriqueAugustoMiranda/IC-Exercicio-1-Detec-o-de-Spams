@@ -76,7 +76,9 @@ def main():
     entrada = dados_analises(entrada)
 
     tfidf_mat, vectorizer = tfidf(entrada)
-
     labels = entrada['label']
+    print("Shape da matriz TF-IDF:", tfidf_mat.shape)
+
+    
 
 main()
