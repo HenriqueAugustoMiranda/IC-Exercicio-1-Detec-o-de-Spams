@@ -11,10 +11,10 @@ def main():
     entrada = pp.pre_processamento(entrada)
     entrada = pp.dados_analises(entrada)
 
-    X, vectorizer = ti.tfidf(entrada)
+    # X, vectorizer = ti.tfidf(entrada)
     y = entrada['label'].map({'ham': 0, 'spam': 1})
-    print("Shape da matriz TF-IDF:", X.shape)
+    # print("Shape da matriz TF-IDF:", X.shape)
 
-    ti.classify(entrada, X, y)
+    ti.classify(entrada, y)
 
 main()

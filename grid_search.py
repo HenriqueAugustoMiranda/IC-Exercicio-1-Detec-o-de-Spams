@@ -94,6 +94,14 @@ def grid_search(entrada, X_base, y):
             tfidf_parameters = tfidf_params
     print(f"[GRID] melhor score:{best_score}\nmelhores parametros encontrados:{tfidf_parameters}\n=============================================")
 
+    with open("saida_grid.txt", "a")as f:
+        f.write("Melhores resultados encontrados:")
+        f.write(f"TF-IDF:\n    {tfidf_parameters}\n\n")
+        f.write(f"KNN:\n    {knn_parameters}\n\n")
+        f.write(f"SVC:\n    {svc_parameters}\n\n")
+        f.write(f"DTC:\n    {dtc_parameters}\n\n")
+        f.write("=================================================")
+
     return knn_parameters, svc_parameters, dtc_parameters, tfidf_parameters
 
 def iterar_grid(grid):

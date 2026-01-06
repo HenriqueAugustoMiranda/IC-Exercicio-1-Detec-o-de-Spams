@@ -1,0 +1,13 @@
+Melhores resultados encontrados:TF-IDF:
+    {'min_df': 5, 'max_df': 0.7, 'max_features': 2000, 'ngram_range': (1, 1), 'sublinear_tf': False}
+
+KNN:
+    {'n_neighbors': 5, 'weights': 'distance'}
+
+SVC:
+    {'C': 1, 'loss': 'squared_hinge', 'max_iter': 3000}
+
+DTC:
+    {'criterion': 'entropy', 'max_depth': 30, 'min_samples_split': 10}
+
+=================================================

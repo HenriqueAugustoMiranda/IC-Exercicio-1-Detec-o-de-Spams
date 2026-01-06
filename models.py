@@ -21,7 +21,7 @@ def KNN(X_train, X_test, y_train, y_test, n_neighbors = 5, weights='distance'):
     return accuracy, f1
 
 
-def SVM(X_train, X_test, y_train, y_test, C=1, loss='squared_hinge', max_iter=5000):
+def SVM(X_train, X_test, y_train, y_test, C=1, loss='squared_hinge', max_iter=3000):
 
     svm = LinearSVC(
         C=C,
@@ -38,7 +38,7 @@ def SVM(X_train, X_test, y_train, y_test, C=1, loss='squared_hinge', max_iter=50
     return accuracy, f1
 
 
-def DTC(X_train, X_test, y_train, y_test, criterion='gini', max_depth=20, min_samples_split=5,):
+def DTC(X_train, X_test, y_train, y_test, criterion = 'entropy', max_depth = 30, min_samples_split = 10):
     
     dtc = DecisionTreeClassifier(
         criterion=criterion,
