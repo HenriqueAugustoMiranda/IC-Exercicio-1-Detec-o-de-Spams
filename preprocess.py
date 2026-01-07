@@ -1,16 +1,6 @@
-import pandas as pnd
 import matplotlib.pyplot as mplot
 import unicodedata
-import nltk
 from nltk.corpus import stopwords as sw
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import LinearSVC
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score, f1_score
-import numpy as np
-from itertools import product
 
 
 # nltk.download("stopwords")
