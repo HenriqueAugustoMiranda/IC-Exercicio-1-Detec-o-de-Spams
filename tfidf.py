@@ -61,7 +61,7 @@ def classify(entrada, y):
 def Kfold(X, y):
     
     skf = StratifiedKFold(
-        n_splits=5,
+        n_splits=10,
         shuffle=True,
         random_state=42
     )
