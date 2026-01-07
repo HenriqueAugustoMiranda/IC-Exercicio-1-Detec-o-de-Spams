@@ -93,22 +93,22 @@ def Kfold(X, y):
         d_f1_scores.append(d_f1)
         d_acc_scores.append(d_acc)
 
-    with open("saida_kfold.txt", "a")as f:
-        f.write("\nKNN - F1 médio:", np.mean(k_f1_scores))
-        f.write("KNN - Desvio padrão:", np.std(k_f1_scores))
+    with open("saida_kfold.txt", "a", encoding="utf-8")as f:
+        f.write(f"\nKNN - F1 médio: {np.mean(k_f1_scores)}")
+        f.write(f"KNN - Desvio padrão: {np.std(k_f1_scores)}")
 
-        f.write("\nSVM - F1 médio:", np.mean(s_f1_scores))
-        f.write("SVM - Desvio padrão:", np.std(s_f1_scores))
+        f.write(f"\nSVM - F1 médio: {np.mean(s_f1_scores)}")
+        f.write(f"SVM - Desvio padrão: {np.std(s_f1_scores)}")
 
-        f.write("\nDTC - F1 médio:", np.mean(d_f1_scores))
-        f.write("DTC - Desvio padrão:", np.std(d_f1_scores))
+        f.write(f"\nDTC - F1 médio: {np.mean(d_f1_scores)}")
+        f.write(f"DTC - Desvio padrão: {np.std(d_f1_scores)}\n")
 
     t_ks, p_ks = ttest_rel(k_f1_scores, s_f1_scores)
     t_kd, p_kd = ttest_rel(k_f1_scores, d_f1_scores)
     t_sd, p_sd = ttest_rel(s_f1_scores, d_f1_scores)
 
     with open("saida_kfold.txt", "a")as f:
-        f.write("Teste T:")
+        f.write("\nTeste T:\n")
 
     interpretar("KNN vs SVM", p_ks)
     interpretar("KNN vs DTC", p_kd)
@@ -121,8 +121,8 @@ def interpretar(nome, p):
     alpha_bonf = alpha / 3
 
     if p < alpha_bonf:
-        with open("saida_kfold.txt", "a")as f:
-            f.write(f"{nome}: diferença estatisticamente significativa (p = {p:.5f})")
+        with open("saida_kfold.txt", "a", encoding="utf-8")as f:
+            f.write(f"{nome}: diferença estatisticamente significativa (p = {p:.5f})\n")
     else:
-        with open("saida_kfold.txt", "a")as f:
-            f.write(f"{nome}: modelos estatisticamente equivalentes (p = {p:.5f})")
+        with open("saida_kfold.txt", "a", encoding="utf-8")as f:
+            f.write(f"{nome}: modelos estatisticamente equivalentes (p = {p:.5f})\n")

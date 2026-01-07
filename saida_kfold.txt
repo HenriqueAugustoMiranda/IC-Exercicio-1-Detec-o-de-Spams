@@ -1,0 +1,9 @@
+
+KNN - F1 médio: 0.9516938317589073KNN - Desvio padrão: 0.00982391354499818
+SVM - F1 médio: 0.9651132554073911SVM - Desvio padrão: 0.00489805535854892
+DTC - F1 médio: 0.9128709242849549DTC - Desvio padrão: 0.006385701446526945
+
+Teste T:
+KNN vs SVM: diferença estatisticamente significativa (p = 0.01015)
+KNN vs DTC: diferença estatisticamente significativa (p = 0.00078)
+SVM vs DTC: diferença estatisticamente significativa (p = 0.00017)
